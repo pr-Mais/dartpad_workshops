@@ -1,0 +1,6 @@
+name: FlutterFire Firestore Converters
+type: flutter
+steps:
+  - name: Introduction to FlutterFire and Firestore
+    directory: 0_introduction_to_flutterfire_and_firestore
+    has_solution: false
