@@ -168,12 +168,12 @@ class PollListItem extends StatelessWidget {
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        for (var i = 0; i < answers.length; i++)
+        for (var answer in answers)
           ListTile(
-            title: Text(answers[i]['text']),
-            selected: pollData['users'][uid] == i,
-            trailing: Text('Votes: ${votes(answers[i])}'),
-            onTap: () => onVote(answers[i]['id']),
+            title: Text(answer['text']),
+            selected: pollData['users'][uid] == answer['id'],
+            trailing: Text('Votes: ${votes(answer)}'),
+            onTap: () => onVote(answer['id']),
           ),
         const Divider(),
       ],

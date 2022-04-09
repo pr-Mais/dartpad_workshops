@@ -7,15 +7,12 @@ steps:
   - name: Read documents without type-safety
     directory: 1_read_documents_without_type_safety
     has_solution: true
-  - name: Create serializable data type
-    directory: 2_create_serializable_data_type
-    has_solution: true
-  - name: Add a converter to a document reference
-    directory: 3_add_converter_to_document_reference
+  - name: Data models and Firestore converters
+    directory: 2_data_models_and_firestore_converters
     has_solution: true
   - name: Create new documents
-    directory: 4_create_new_document
+    directory: 3_create_new_document
     has_solution: true
   - name: Update or Set?
-    directory: 5_update_or_set_new_data
+    directory: 4_update_or_set_new_data
     has_solution: true
