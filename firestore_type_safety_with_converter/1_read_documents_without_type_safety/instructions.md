@@ -11,11 +11,11 @@ At this stage, we don't have such a collection on our Firebase project yet, so l
 On the Firebase console, navigate to Firestore. Click on **"Create database"**, then choose **"Test mode"**. 
 > ⚠️ The test mode will make our database open for reads and writes without any security rules, if you're working in a real project, make sure to switch to **production mode** once you're done testing.
 
-![Create Firestore database](http://localhost:8080/assets/create-firestore-database.gif)
+![Create Firestore database](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/create-firestore-database.gif?raw=true)
 
 Next, create a new collection named `poll`. It will look like this:
 
-![Poll collection in Firestore](http://localhost:8080/assets/poll-collection.png)
+![Poll collection in Firestore](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/poll-collection.png?raw=true)
 
 You can create as many documents as you like.
 

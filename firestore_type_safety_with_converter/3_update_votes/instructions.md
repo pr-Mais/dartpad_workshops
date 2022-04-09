@@ -10,7 +10,7 @@ In this step we will add a voting method to each poll, which includes updating e
 
 Each user is authenticated anonymously and has a unique ID. When a user clicks on an answer in a poll to vote for it, we need to make sure that any user can vote once for any poll. Therefore, on each poll, we store a map of users, linking each user to an answer by its ID.
 
-![Users map in a poll document](http://localhost:8080/assets/poll-votes.png)
+![Users map in a poll document](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/poll-votes.png?raw=true)
 
 ## Update nested fields in Firestore
 

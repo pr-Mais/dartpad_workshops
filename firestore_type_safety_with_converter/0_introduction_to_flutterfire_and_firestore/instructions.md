@@ -31,7 +31,7 @@ To create a Firebase project, follow these steps:
 1. You need to have a Gmail account.
 2. Go to [console.firebase.google.com](https://console.firebase.google.com/), and click on **Add project**.
 3. Once you get into the project, you can create various apps. In this workshop we will create a web app.
-![Create web app in the Firebase Console](http://localhost:8080/assets/create-app.gif)
+![Create web app in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/create-app.gif?raw=true)
 4. Once you copied the configurations, paste them in `TODO(2)`.
 
 > 💡 You will have to repeat this step for all the upcoming steps in the workshop to be able to run the code successfully.
