@@ -1,4 +1,4 @@
-name: FlutterFire Firestore Converters
+name: Add type-safety to Firestore using converters
 type: flutter
 steps:
   - name: Introduction to FlutterFire and Firestore
@@ -10,9 +10,9 @@ steps:
   - name: Data models and Firestore converters
     directory: 2_data_models_and_firestore_converters
     has_solution: true
-  - name: Create new documents
-    directory: 3_create_new_document
+  - name: Update votes
+    directory: 3_update_votes
     has_solution: true
-  - name: Update or Set?
-    directory: 4_update_or_set_new_data
+  - name: Adding new polls
+    directory: 4_adding_new_polls
     has_solution: true

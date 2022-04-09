@@ -133,6 +133,7 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
+                    //TODO(2): call `vote` and pass it the current answer id.
                     onVote: (i) {},
                   );
                 },
@@ -152,28 +153,14 @@ class PollListItem extends StatelessWidget {
     required this.onVote,
   }) : super(key: key);
 
-  //TODO(3): change the type to `Poll`.
-  final QueryDocumentSnapshot<Map<String, dynamic>> poll;
+  final QueryDocumentSnapshot<Poll> poll;
   final void Function(int) onVote;
 
   @override
   Widget build(BuildContext context) {
     final uid = context.read<AuthState>().user!.uid;
     final pollData = poll.data();
-    final answers = pollData['answers'];
-
-    //TODO(5): votes is now a property of `Answer`, remove this method from here.
-    /// Votes is the total of users who voted for this answer by its Id.
-    int votes(Map<String, dynamic> answer) {
-      int votes = 0;
-
-      for (String user in pollData['users'].keys) {
-        if (pollData['users'][user] == answer['id']) {
-          votes++;
-        }
-      }
-      return votes;
-    }
+    final answers = pollData.answers;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,17 +168,16 @@ class PollListItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            pollData['question'],
+            pollData.question,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         for (var answer in answers)
           ListTile(
-            title: Text(answer['text']),
-            selected: pollData['users'][uid] == answer['id'],
-            //TODO(6): read the property `votes`.
-            trailing: Text('Votes: ${votes(answer)}'),
-            onTap: () => onVote(answer['id']),
+            title: Text(answer.text),
+            selected: pollData.users[uid] == answer.id,
+            trailing: Text('Votes: ${answer.votes}'),
+            onTap: () => onVote(answer.id),
           ),
         const Divider(),
       ],
@@ -227,15 +213,16 @@ class AuthState extends ChangeNotifier {
 }
 
 class PollsState extends ChangeNotifier {
-  //TODO(2): update the list type from `Map` to `Poll`.
-  List<QueryDocumentSnapshot<Map<String, dynamic>>>? _polls;
-  List<QueryDocumentSnapshot<Map<String, dynamic>>> get polls => _polls ?? [];
+  List<QueryDocumentSnapshot<Poll>>? _polls;
+  List<QueryDocumentSnapshot<Poll>> get polls => _polls ?? [];
 
   final _firestore = FirebaseFirestore.instance;
 
-  //TODO(4): use `withConvereter` method to cast the data coming from Firestore to a `Poll` type.
-  CollectionReference<Map<String, dynamic>> get _pollsRef =>
-      _firestore.collection('poll');
+  CollectionReference<Poll> get _pollsRef =>
+      _firestore.collection('poll').withConverter<Poll>(
+            fromFirestore: (snapshot, _) => Poll.fromJson(snapshot.data()),
+            toFirestore: (Poll poll, _) => poll.toJson(),
+          );
 
   PollsState() {
     _pollsRef.snapshots().listen((event) {
@@ -243,10 +230,89 @@ class PollsState extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  //TODO(1): add vote() method.
 }
 
-//TODO(1): create user-defined types for `Poll` and `Answer`.
+class Poll {
+  /// represents the `question` field.
+  final String question;
 
-class Poll {}
+  /// represents the `answers` field.
+  final List<Answer> answers;
 
-class Answer {}
+  /// represents the `users` field.
+  final Map<String, int> users;
+
+  Poll({
+    required this.question,
+    required this.answers,
+    this.users = const {},
+  });
+
+  factory Poll.fromJson(Map<String, dynamic>? data) {
+    final users = (data!['users'] ?? {}).cast<String, int>();
+    final answers = data['answers']
+        .map((answerData) => Answer.fromJson(answerData, users))
+        .toList()
+        .cast<Answer>();
+
+    return Poll(
+      answers: answers,
+      question: data['question'],
+      users: users,
+    );
+  }
+
+  toJson() {
+    final answersMap = <Map<String, dynamic>>[];
+
+    for (var answer in answers) {
+      answersMap.add(answer.toJson());
+    }
+
+    return {
+      'question': question,
+      'answers': answersMap,
+      'users': users,
+    };
+  }
+}
+
+class Answer {
+  final int id;
+  final String text;
+  final int votes;
+
+  Answer({
+    required this.text,
+    required this.id,
+    this.votes = 0,
+  });
+
+  factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
+    // Votes is the total of users who voted for this answer by its Id.
+    // The logic to calculate total votes is now done on the data layer,
+    // making the widgets layer clean and separate from logic.
+    int votes = 0;
+
+    for (String user in users.keys) {
+      if (users[user] == data['id']) {
+        votes++;
+      }
+    }
+
+    return Answer(
+      text: data['text'],
+      id: data['id'],
+      votes: votes,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'id': id,
+    };
+  }
+}

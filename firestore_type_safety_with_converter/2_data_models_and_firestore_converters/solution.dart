@@ -178,7 +178,7 @@ class PollListItem extends StatelessWidget {
             selected: pollData.users[uid] == answer.id,
             //TODO(6): read the property `votes`.
             trailing: Text('Votes: ${answer.votes}'),
-            onTap: () {},
+            onTap: () => onVote(answer.id),
           ),
         const Divider(),
       ],
