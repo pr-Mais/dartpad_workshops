@@ -18,6 +18,11 @@ The **core package** helps us configure Firebase project with our credentials.
 
 To use these packages in this workshop, import them on `TODO(1)`.
 
+```dart
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+```
+
 Additionally, you will notice 2 packages are added for you:
 1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help us identify each user as we will use that in building the app.
 2. [`provider`](https://pub.dev/packages/provider): to help in state management and decoupling database logic from the UI.
