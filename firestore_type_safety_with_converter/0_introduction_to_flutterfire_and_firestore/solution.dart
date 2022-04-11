@@ -49,7 +49,7 @@ class _FirestoreAppState extends State<FirestoreApp> {
           // If a guest has signed in.
           if (auth._user != null) {
             return Scaffold(
-              appBar: AppBar(title: Text('Polls')),
+              appBar: AppBar(title: const Text('Polls')),
               body: const Center(
                 child: Text("Polls Page"),
               ),
