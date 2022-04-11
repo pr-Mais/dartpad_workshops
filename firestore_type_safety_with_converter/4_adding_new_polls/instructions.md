@@ -20,7 +20,7 @@ Future<void> createPoll(Poll poll) async {
 }
 ```
 
-There's no need to call `toJson()` on the poll, we simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConvereter`, we won't need to call it again.
+There's no need to call `toJson()` on the poll, we simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConverter`, we won't need to call it again.
 
 ## Creating new polls
 
