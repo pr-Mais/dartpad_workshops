@@ -51,8 +51,3 @@ void onCreate() {
 
 If you scroll up to `line 133`, we're calling `createPoll` from `PollsState` and giving it the newly constructed poll in the sheet.
 
-## Resources
-
-With this we reach the final step in this workshop. To learn more about the different methods available in the Firestore SDK in Flutter, [visit the documentation](https://firebase.flutter.dev/docs/firestore/usage).
-
-Remember that type-safety should always be your friend in creating Flutter apps. Whether it's Firestore, or any other type of data, make sure you code defensively, and guard against possibly unexpected data types.

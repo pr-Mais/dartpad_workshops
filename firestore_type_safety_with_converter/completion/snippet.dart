@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//TODO: paste your Firebase project configurations here.
+//TODO: just once more 🤫... paste your Firebase project configurations here.
 const firebaseOptions = FirebaseOptions(
   apiKey: "...",
   authDomain: "...",
@@ -124,6 +124,19 @@ class PollsPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Consumer<PollsState>(
+            builder: (context, pollsState, __) => CreatePollButton(
+              onTap: () {
+                showBottomSheet<NewPollSheet>(
+                    context: context,
+                    builder: (context) {
+                      return NewPollSheet(
+                        onSave: pollsState.createPoll,
+                      );
+                    });
+              },
+            ),
+          ),
           Expanded(
             child: Consumer<PollsState>(
               builder: (_, pollsState, __) => ListView.builder(
@@ -134,7 +147,6 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
-                    //TODO(2): call `vote` and pass it the current answer id.
                     onVote: (i) => pollsState.vote(pollDoc.id, i),
                   );
                 },
@@ -186,6 +198,154 @@ class PollListItem extends StatelessWidget {
   }
 }
 
+// ✨ Newly added widget in step 5.
+class CreatePollButton extends StatelessWidget {
+  const CreatePollButton({
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.amber[100],
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
+          height: 60,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            alignment: Alignment.center,
+            child: const Text(
+              'Create a Poll',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ✨ Newly added widget in step 5.
+class NewPollSheet extends StatefulWidget {
+  const NewPollSheet({
+    Key? key,
+    required this.onSave,
+  }) : super(key: key);
+  final void Function(Poll) onSave;
+
+  @override
+  State<NewPollSheet> createState() => _NewPollSheetState();
+}
+
+class _NewPollSheetState extends State<NewPollSheet> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final questionController = TextEditingController();
+  final answersControllers = <int, TextEditingController>{};
+
+  void addAnswer() {
+    setState(() {
+      answersControllers
+          .addAll({answersControllers.length: TextEditingController()});
+    });
+  }
+
+  void removeAnswer(int i) {
+    setState(() {
+      answersControllers.remove(i);
+    });
+  }
+
+  void onCreate() {
+    if (formKey.currentState!.validate() && answersControllers.isNotEmpty) {
+      //TODO(2): upon clickin on create button, construct a new Poll and pass it to widget.onSave()
+      Poll poll = Poll(
+        answers: [
+          for (int answerId in answersControllers.keys)
+            Answer(
+              id: answerId,
+              text: answersControllers[answerId]!.text,
+            ),
+        ],
+        question: questionController.text,
+      );
+
+      widget.onSave(poll);
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomSheet(
+      onClosing: () {},
+      builder: (context) {
+        return Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: questionController,
+                  validator: (value) =>
+                      value != null && value.isNotEmpty ? null : 'required',
+                  decoration: const InputDecoration(
+                    labelText: 'Question',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                for (int answerId in answersControllers.keys)
+                  Column(
+                    children: [
+                      TextFormField(
+                        controller: answersControllers[answerId],
+                        validator: (value) => value != null && value.isNotEmpty
+                            ? null
+                            : 'required',
+                        decoration: InputDecoration(
+                          labelText: 'Answer $answerId',
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            onPressed: () => removeAnswer(answerId),
+                            icon: const Icon(Icons.delete_outline),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OutlinedButton(
+                      onPressed: addAnswer,
+                      child: const Text('Add answer'),
+                    ),
+                    ElevatedButton(
+                      onPressed: onCreate,
+                      child: const Text('Create'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class AuthState extends ChangeNotifier {
   User? _user;
   User? get user => _user;
@@ -232,21 +392,20 @@ class PollsState extends ChangeNotifier {
     });
   }
 
-  //TODO(1): add vote() method.
   Future<void> vote(String pollId, int answerId) async {
     final user = FirebaseAuth.instance.currentUser;
     await _pollsRef.doc(pollId).update({'users.${user!.uid}': answerId});
   }
+
+  Future<void> createPoll(Poll poll) async {
+    //TODO(1): add the new poll to the database.
+    await _pollsRef.add(poll);
+  }
 }
 
 class Poll {
-  /// represents the `question` field.
   final String question;
-
-  /// represents the `answers` field.
   final List<Answer> answers;
-
-  /// represents the `users` field.
   final Map<String, int> users;
 
   Poll({
@@ -285,20 +444,13 @@ class Poll {
 }
 
 class Answer {
-  final int id;
   final String text;
   final int votes;
+  final int id;
 
-  Answer({
-    required this.text,
-    required this.id,
-    this.votes = 0,
-  });
-
+  Answer({required this.text, required this.id, this.votes = 0});
   factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
     // Votes is the total of users who voted for this answer by its Id.
-    // The logic to calculate total votes is now done on the data layer,
-    // making the widgets layer clean and separate from logic.
     int votes = 0;
 
     for (String user in users.keys) {

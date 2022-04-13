@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 //TODO(1): add workshop required packages.
 
 //TODO(2): paste your Firebase project configurations here.
-const firebaseOptions = const FirebaseOptions(
+const firebaseOptions = FirebaseOptions(
   apiKey: "...",
   authDomain: "...",
   projectId: "...",

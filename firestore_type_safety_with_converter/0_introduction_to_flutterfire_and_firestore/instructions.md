@@ -14,9 +14,9 @@ To use Firestore in Flutter, we need 2 packages:
 1. [`firebase_core`](https://pub.dev/packages/firebase_core)
 2. [`cloud_firestore`](https://pub.dev/packages/cloud_firestore)
 
-The **core package** helps us configure a Firebase project with our credentials.
+The **core package** allows you to configure a Firebase project with your credentials.
 
-To use these packages in this workshop, import them on `TODO(1)`.
+In order to use these packages in this workshop, import them on `TODO(1)`.
 
 ```dart
 import 'package:firebase_core/firebase_core.dart';
@@ -24,13 +24,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 ```
 
 Additionally, you will notice 2 packages are added for you:
-1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help us identify each user as we will use that in building the app.
+1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help you uniquely identify each user as we will use that in building the app.
 2. [`provider`](https://pub.dev/packages/provider): to help in state management and decoupling database logic from the UI.
 
 ## Create a Firebase project
 
-To link any app with Firebase, we need to get project configurations. 
-But first, we need to have a Firebase project. 
+To link any app with Firebase, you need to get project configurations. 
+But first, you need to have a Firebase project. 
 To create a Firebase project, follow these steps:
 
 1. You need to have a Gmail account.
@@ -41,6 +41,12 @@ To create a Firebase project, follow these steps:
 
 > 💡 You will have to repeat this step for all the upcoming steps in the workshop to be able to run the code successfully.
 
+## Anonymous sign-in method
+
+[Firebase Auth] is used in this project to uniquely identify each user. It provides various options for sign-in methods, like Email and Password, Google, and the one which is used in this workshop, **anonymous sign-in**.
+
+Before you can use any sign-in provider, you have to enable it explicitly in the Firebase console.
+![Enable Firebase Auth in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/enable-auth.gif?raw=true)
 ## Initialize Firebase in Flutter
 
 Now that we have the configurations ready, the initialization should happen before any call to any other FlutterFire plugin, including Firestore.
@@ -60,4 +66,4 @@ await Firebase.initializeApp(options: firebaseOptions);
 
 **A common concern here is:** if the initialization is an asynchronous method, it might cause the app to take more time before calling `runApp()`, so a black screen will show for a few seconds.
 
-**The simple answer:** it wouldn't be a concern. The reason it's marked as `Future` is because it's calling platform channels on native platforms, and similarly on web it's injecting the configurations to the Firebase JS SDK. Therefore, it's not a network call and won't ever take more than a few milliseconds.
+**The simple answer:** it wouldn't be a concern. The reason it's marked as `Future` is that it's calling platform channels on native platforms, and similarly on web it's injecting the configurations to the Firebase JS SDK. Therefore, it's not a network call and won't ever take more than a few milliseconds.

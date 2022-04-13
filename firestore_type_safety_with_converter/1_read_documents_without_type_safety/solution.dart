@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//TODO: paste your Firebase project configurations here.
 const firebaseOptions = FirebaseOptions(
   apiKey: "...",
   authDomain: "...",

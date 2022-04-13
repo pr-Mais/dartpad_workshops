@@ -16,3 +16,6 @@ steps:
   - name: Adding new polls
     directory: 4_adding_new_polls
     has_solution: true
+  - name: Complete project
+    directory: completion
+    has_solution: false
