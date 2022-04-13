@@ -2,12 +2,12 @@
 
 > 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
-Read, write... we're still missing `create`!
+Read, write... you're still missing `create`!
 
-Let's add new polls and see how the converters we added previously on `_pollsRef` will make this step easy and clean.
+Let's add new polls and see how the converters you added previously on `_pollsRef` will make this step easy and clean.
 
-Before we go further, 2 new widgets has been added to help in this step:
-- Line `200`: `CreatePollButton` a custom button design with `onTap` callback. 
+Before going further, 2 new widgets has been added to help you in this step:
+- Line `200`: `CreatePollButton` a custom button design with `onTap` callback.
 - Line `236`: `NewPollSheet` a new page designed to create polls, with `onSave` callback that returns a new `Poll` object if all fields are valid.
 
 ## Call `add` on `_pollsRef`
@@ -20,7 +20,7 @@ Future<void> createPoll(Poll poll) async {
 }
 ```
 
-There's no need to call `toJson()` on the poll, we simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConverter`, so we won't need to call it again.
+There's no need to call `toJson()` on the poll, you will simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConverter`, so no need to call it again.
 
 ## Creating new polls
 

@@ -18,7 +18,7 @@ pollId
 |___ users (Map)
 ```
 
-To represent it as a data model in Dart, we create a class named `Poll`. This class will have a property for each field in the document.
+To represent it as a data model in Dart, you will create a class named `Poll`. This class will have a property matching each field in the Firestore document.
 
 ```dart
 class Poll {
@@ -39,7 +39,7 @@ class Poll {
 }
 ```
 
-Note how each field has a clear type. It's important to not leave lists and maps without specifying the type of object inside it. In this case we know the users map has String keys and int values. Similarly, each answer could be represented with a new model, as each answer in the list is a map with its own fields.
+Note how each field has a clear type. It's important to not leave lists and maps without specifying the type of object inside it. In this case, you already know that the `users` map has `String` keys and `int` values. Similarly, each answer could be represented with a new model, as each answer in the list is a map with its own fields.
 
 ```dart
 class Answer {
@@ -132,9 +132,9 @@ Map<String, dynamic> toJson() {
 
 ## Put it all together
 
-Now we're ready to use our models. In `TODO(2)` & `TODO(3)`, change the list type from `Map<String, dynamic>` to `Poll`.
+You're now ready to use the models. In `TODO(2)` & `TODO(3)`, change the list type from `Map<String, dynamic>` to `Poll`.
 
-Next, we will use the magical `withConvereter()` method on the collection reference, scroll back to `TODO(4)`, and change it to the following:
+Next, you will use the magical `withConvereter()` method on the collection reference, scroll back to `TODO(4)`, and change it to the following:
 
 ```dart
 CollectionReference<Poll> get _pollsRef =>
@@ -144,7 +144,7 @@ CollectionReference<Poll> get _pollsRef =>
         );
 ```
 
-Let's talk a bit about what's happening here. The data we receive from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a fromJson and toJson methods. It will handle transformation of data for you on all the operations done on this reference. For reads, you will get `Poll` instead of `Map`. In writes, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
+Let's talk a bit about what's happening here. The data received from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a fromJson and toJson methods. It will handle transformation of data for you on all the operations done on this reference. For reads, you will get `Poll` instead of `Map`. In writes, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
 
 So if you want to add a new poll, you would simply do:
 
@@ -155,7 +155,7 @@ _pollsRef.add(poll);
 
 ## Cleaning up `PollListItem`
 
-In the last step on `TODO(5)`, we will go to `PollListItem`, and remove `votes()` method, now that it's a property of `Answer`.
+In the last step on `TODO(5)`, you will go to `PollListItem`, and remove `votes()` method, now that it's a property of `Answer`.
 Then read the votes from answer object in `TODO(6)`.
 
 ```dart

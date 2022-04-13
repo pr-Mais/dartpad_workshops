@@ -93,12 +93,12 @@ Expanded(
 
 ## What's the problem with using `Map<String, dynamic>` as the reference type
 
-The type assigned to the collection reference is `CollectionReference<Map<String, dynamic>>`, this means the data inside each document that we will get from this reference will be of type `Map<String, dynamic>`. For example, to get the question text of a single poll:
+The type assigned to the collection reference is `CollectionReference<Map<String, dynamic>>`, this means the data inside each document that you will get from this reference will be of type `Map<String, dynamic>`. For example, to get the question text of a single poll:
 
 ```dart
 final question = polls[0]?.data()?['question'];
 ```
 
-The type of `question` isn't known. Firestore is NoSQL, and each field could have several types, so `question` could be a `null` in one document, and a `int` in another document, therefore we would never be able to set any type rules from the database side! 
+The type of `question` isn't known. Firestore is NoSQL, and each field could have several types, so `question` could be a `null` in one document, and a `int` in another document, therefore you would never be able to set any type rules from the database side! 
 
 This requires us to code defensively. Type-safety is a very crucial part of using a NoSQL database in our projects.

@@ -6,11 +6,11 @@ FlutterFire stands for **Flutter + Firebase**. It's a collection of plugins and 
 
 **Firestore** is one of Firebase's popular products, it's a NoSQL real-time database. There's another database option in Firebase, which is the **Real-time Database**. To understand the difference between them, [this is a nice guide](https://firebase.google.com/docs/database/rtdb-vs-firestore) to help you decide which one is suitable for your use case.
 
-In this workshop, we will talk about Firestore only. We will learn how to write effective and type-safe Firestore queries in Flutter, with techniques to parse the data from and back to Firestore.
+In this workshop, you will learn how to write effective and type-safe Firestore queries in Flutter, with techniques to serialize the data from and back to Firestore.
 
 ## Add required packages
 
-To use Firestore in Flutter, we need 2 packages:
+To use Firestore in Flutter, you need 2 packages:
 1. [`firebase_core`](https://pub.dev/packages/firebase_core)
 2. [`cloud_firestore`](https://pub.dev/packages/cloud_firestore)
 
@@ -24,7 +24,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 ```
 
 Additionally, you will notice 2 packages are added for you:
-1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help you uniquely identify each user as we will use that in building the app.
+1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help you uniquely identify each user as you will use that in building the app.
 2. [`provider`](https://pub.dev/packages/provider): to help in state management and decoupling database logic from the UI.
 
 ## Create a Firebase project
@@ -35,7 +35,7 @@ To create a Firebase project, follow these steps:
 
 1. You need to have a Gmail account.
 2. Go to [console.firebase.google.com](https://console.firebase.google.com/), and click on **Add project**.
-3. Once you get into the project, you can create various apps. In this workshop we will create a web app.
+3. Once you get into the project, you can create various apps. In this workshop you will create a web app.
 ![Create web app in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/create-app.gif?raw=true)
 4. Once you copied the configurations, paste them in `TODO(2)`.
 
@@ -49,7 +49,7 @@ Before you can use any sign-in provider, you have to enable it explicitly in the
 ![Enable Firebase Auth in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/enable-auth.gif?raw=true)
 ## Initialize Firebase in Flutter
 
-Now that we have the configurations ready, the initialization should happen before any call to any other FlutterFire plugin, including Firestore.
+Now that you have the configurations ready, the initialization should happen before any call to any other FlutterFire plugin, including Firestore.
 It's usually better to do that before calling `runApp()` in `main()`.
 
 ### `TODO(3)`
