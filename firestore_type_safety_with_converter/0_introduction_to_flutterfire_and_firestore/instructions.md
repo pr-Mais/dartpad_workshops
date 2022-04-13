@@ -43,7 +43,7 @@ To create a Firebase project, follow these steps:
 
 ## Anonymous sign-in method
 
-[Firebase Auth] is used in this project to uniquely identify each user. It provides various options for sign-in methods, like Email and Password, Google, and the one which is used in this workshop, **anonymous sign-in**.
+[Firebase Auth](https://firebase.google.com/docs/auth) is used in this project to uniquely identify each user. It provides various options for sign-in methods, like Email and Password, Google, and the one which is used in this workshop, **anonymous sign-in**.
 
 Before you can use any sign-in provider, you have to enable it explicitly in the Firebase console.
 ![Enable Firebase Auth in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/enable-auth.gif?raw=true)
