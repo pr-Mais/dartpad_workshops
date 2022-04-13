@@ -1,6 +1,6 @@
 # Read Firestore documents without type-safety
 
-> 💡 if you get stuck, click on **show solution** button below then run the code to see the final result in this step.
+> 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
 In this step, we will read a Firestore **collection** named `poll`, which contains a list of Polls.
 
@@ -9,7 +9,7 @@ In this step, we will read a Firestore **collection** named `poll`, which contai
 At this stage, we don't have such a collection on our Firebase project yet, so let's go and create it with some dummy data. 
 
 On the Firebase console, navigate to Firestore. Click on **"Create database"**, then choose **"Test mode"**. 
-> ⚠️ The test mode will make our database open for reads and writes without any security rules, if you're working in a real project, make sure to switch to **production mode** once you're done testing.
+> ⚠️ The test mode will make our database open for reads and writes without any security rules. If you're working in a real project, make sure to switch to **production mode** once you're done testing.
 
 ![Create Firestore database](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/create-firestore-database.gif?raw=true)
 
@@ -74,6 +74,6 @@ The type assigned to the collection reference is `CollectionReference<Map<String
 final question = polls[0]?.data()?['question'];
 ```
 
-The type of `question` isn't known. Firestore is NoSQL, each field could have several types, so `question` could be a `null` in one document, and a `int` in another document, we would never be able to set any type rules from the database side! 
+The type of `question` isn't known. Firestore is NoSQL, and each field could have several types, so `question` could be a `null` in one document, and a `int` in another document, therefore we would never be able to set any type rules from the database side! 
 
 This requires us to code defensively. Type-safety is a very crucial part of using a NoSQL database in our projects.

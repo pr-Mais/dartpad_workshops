@@ -1,10 +1,10 @@
 # Introduction to FlutterFire and Firestore
 
-> 💡 if you get stuck, click on **show solution** button below then run the code to see the final result in this step.
+> 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
 FlutterFire stands for **Flutter + Firebase**. It's a collection of plugins and packages to integrate and use Firebase in Flutter applications.
 
-**Firestore** is one of Firebase's popular products, it's a NoSQL real-time database. There's another database option in Firebase, which is the **Real-time Database**. To understand the difference between them, [this's a nice guide](https://firebase.google.com/docs/database/rtdb-vs-firestore) to help you decide which one is suitable for your use case.
+**Firestore** is one of Firebase's popular products, it's a NoSQL real-time database. There's another database option in Firebase, which is the **Real-time Database**. To understand the difference between them, [this is a nice guide](https://firebase.google.com/docs/database/rtdb-vs-firestore) to help you decide which one is suitable for your use case.
 
 In this workshop, we will talk about Firestore only. We will learn how to write effective and type-safe Firestore queries in Flutter, with techniques to parse the data from and back to Firestore.
 
@@ -14,7 +14,7 @@ To use Firestore in Flutter, we need 2 packages:
 1. [`firebase_core`](https://pub.dev/packages/firebase_core)
 2. [`cloud_firestore`](https://pub.dev/packages/cloud_firestore)
 
-The **core package** helps us configure Firebase project with our credentials.
+The **core package** helps us configure a Firebase project with our credentials.
 
 To use these packages in this workshop, import them on `TODO(1)`.
 
@@ -48,16 +48,16 @@ It's usually better to do that before calling `runApp()` in `main()`.
 
 ### `TODO(3)`
 
-Mark the `main()` method as `async`, since the initialization method has the return type of `Future<viod>`.
+Mark the `main()` method as `async`, since the initialization method has the return type of `Future<void>`.
 
 Then call the initialization method:
 ```dart
 // It's important to call this line before initializing Firebase,
-// since we need to make sure Flutter binding to be initialized first.
+// since Flutter binding needs to be initialized first.
 WidgetsFlutterBinding.ensureInitialized();
 await Firebase.initializeApp(options: firebaseOptions);
 ```
 
-**A common concern here is:** if the initialization is an asynchronous method, it might cause the app to take more time before calling `runApp()`, so a black screen will show for few seconds.
+**A common concern here is:** if the initialization is an asynchronous method, it might cause the app to take more time before calling `runApp()`, so a black screen will show for a few seconds.
 
-**The simple answer:** it wouldn't be a concern. The reason it's marked as `Future` because it's calling platform channels on native platforms, and similarly on web it's injecting the configurations to the Firebase JS SDK. Therefore, it's not a network call and won't ever take more than few milliseconds.
+**The simple answer:** it wouldn't be a concern. The reason it's marked as `Future` is because it's calling platform channels on native platforms, and similarly on web it's injecting the configurations to the Firebase JS SDK. Therefore, it's not a network call and won't ever take more than a few milliseconds.

@@ -1,6 +1,6 @@
 # Adding new polls
 
-> 💡 if you get stuck, click on **show solution** button below then run the code to see the final result in this step.
+> 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
 Read, write... we're still missing `create`!
 
@@ -20,7 +20,7 @@ Future<void> createPoll(Poll poll) async {
 }
 ```
 
-There's no need to call `toJson()` on the poll, we simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConverter`, we won't need to call it again.
+There's no need to call `toJson()` on the poll, we simply pass it to `add`, since `toJson` has already been declared as the `toFirestore` property in `withConverter`, so we won't need to call it again.
 
 ## Creating new polls
 

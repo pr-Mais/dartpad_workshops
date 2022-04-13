@@ -1,6 +1,6 @@
 # Update votes
 
-> 💡 if you get stuck, click on **show solution** button below then run the code to see the final result in this step.
+> 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
 Now that we have the power of type-safety to read Firestore collections, what about updating existing documents?
 
@@ -16,7 +16,7 @@ Each user is authenticated anonymously and has a unique ID. When a user clicks o
 
 In order to update `users` map, we need to update a field inside a map inside a document, this's a "nested field".
 
-In Firestore, we can update nested fields easily using `update` method. Go to `TODO(1)`, and add the following method which updates the answer ID for a specific user:
+In Firestore, we can update nested fields easily by using the `update` method. Go to `TODO(1)`, and add the following method which updates the answer ID for a specific user:
 
 ```dart
 Future<void> vote(String pollId, int answerId) async {

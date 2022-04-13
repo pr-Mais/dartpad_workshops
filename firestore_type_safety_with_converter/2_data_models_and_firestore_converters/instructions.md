@@ -1,6 +1,6 @@
 # Data models and Firestore converters
 
-> 💡 if you get stuck, click on **show solution** button below then run the code to see the final result in this step.
+> 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
 We've seen in the previous step how dynamic access to properties in a document could be risky.
 Let's now add a layer of type-safety!
@@ -55,7 +55,7 @@ class Answer {
 }
 ```
 
-The `votes` property is not one of the fields stored in the database. Remember where did we calculate votes for each answer?
+The `votes` property is not one of the fields stored in the database. Remember where you calculated votes for each answer?
 This transformation code can now be included as a property in each answer as well.
 
 ## `fromJson` factory constructor
@@ -103,11 +103,11 @@ The `votes` is now calculated on the fly for each answer, therefore no need for 
 
 ## `toJson()` instance method
 
-The constructor above instantiates a new object from a Map. This is helpful when reading documents from Firestore, but we also need to write to Firestore, in which case we need to get back a Map representation of each model.
+The constructor above instantiates a new object from a Map. This is helpful when reading documents from Firestore, but you also need to write to Firestore, in which case you need to get back a Map representation of each model.
 
 ```dart
 // Add inside `Poll` class.
-toJson() {
+Map<String, dynamic> toJson() {
   final answersMap = <Map<String, dynamic>>[];
 
   for (var answer in answers) {
