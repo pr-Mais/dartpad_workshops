@@ -2,8 +2,8 @@
 
 > 💡 If you get stuck, click on the **“Show Solution”** button below, then run the code to see the final result in this step.
 
-We've seen in the previous step how dynamic access to properties in a document could be risky.
-Let's now add a layer of type-safety!
+In the previous step, you have seen how dynamic access to properties in a document could be risky.
+Let us now add a layer of type-safety!
 
 ## Create `Poll` and `Answer` models
 
@@ -60,7 +60,7 @@ This transformation code can now be included as a property in each answer as wel
 
 ## `fromJson` factory constructor
 
-Let's add another constructor to each model.
+Let us add another constructor to each model.
 
 ```dart
 // Add it inside `Poll` class.
@@ -144,7 +144,7 @@ CollectionReference<Poll> get _pollsRef =>
         );
 ```
 
-Let's talk a bit about what's happening here. The data received from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a fromJson and toJson methods. It will handle transformation of data for you on all the operations done on this reference. For reads, you will get `Poll` instead of `Map`. In writes, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
+Let us talk a bit about what's happening here. The data received from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a fromJson and toJson methods. It will handle transformation of data for you on all the operations done on this reference. For reads, you will get `Poll` instead of `Map`. In writes, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
 
 So if you want to add a new poll, you would simply do:
 

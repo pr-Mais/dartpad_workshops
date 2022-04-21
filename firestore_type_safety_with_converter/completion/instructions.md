@@ -1,6 +1,6 @@
 # The complete project 🎉
 
-**Congratulations on reaching this far!** ✨
+**Congratulations, you completed this workshop!** ✨
 
 Always remember that type-safety should be your friend while creating Dart or Flutter apps. Whether it's Firestore, or any other type of data, make sure you code defensively, and guard against possibly unexpected data types.
 

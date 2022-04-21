@@ -6,7 +6,7 @@ In this step, you will read a Firestore **collection** named `poll`, which conta
 
 ## Create `poll` collection in Firestore
 
-At this stage, you don't have such a collection on your Firebase project yet, so let's go and create it with some dummy data. 
+At this stage, you don't have such a collection on your Firebase project yet, so let us go and create it with some dummy data. 
 
 On the Firebase console, navigate to Firestore. Click on **"Create database"**, then choose **"Test mode"**. 
 > ⚠️ The test mode will make your database open for reads and writes without any security rules. If you're working in a real project, make sure to switch to **production mode** once you're done testing.
@@ -50,7 +50,7 @@ It's time to ask Firestore for the list of polls!
 
 > You can see a number of new lines of code added for you in this step. As the focus is on effect querying and type-safety in this workshop, you won't have to write much UI code, new widgets will be provided for you throughout the workshop.
 
-Scroll down to `TODO(1)`, on line `233`. The first step in reading or writing to Firestore, is to have a reference to the required collection.
+Scroll down to `TODO(1)`. The first step in reading or writing to Firestore, is to have a reference to the required collection.
 
 ```dart
 CollectionReference<Map<String, dynamic>> get _pollsRef =>

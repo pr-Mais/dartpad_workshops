@@ -27,7 +27,7 @@ Future<void> vote(String pollId, int answerId) async {
 
 Note how you used the same `_pollsRef` without any additional code to transform the poll object.
 
-Read more about updating data in [FlutterFire Firestore documentation](https://firebase.flutter.dev/docs/firestore/usage#updating-documents).
+For more information about updating data, [see FlutterFire Firestore documentation](https://firebase.flutter.dev/docs/firestore/usage#updating-documents).
 
 ## Call `vote` from the UI
 

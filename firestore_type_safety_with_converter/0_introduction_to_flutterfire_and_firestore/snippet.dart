@@ -1,3 +1,5 @@
+// ignore_for_file: const_initialized_with_non_constant_value, undefined_function
+
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';

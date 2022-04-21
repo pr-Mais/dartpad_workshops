@@ -4,15 +4,15 @@
 
 Read, write... you're still missing `create`!
 
-Let's add new polls and see how the converters you added previously on `_pollsRef` will make this step easy and clean.
+Now it's time to add new polls and see how the converters you added previously on `_pollsRef` will make this step easy and clean.
 
 Before going further, 2 new widgets has been added to help you in this step:
-- Line `200`: `CreatePollButton` a custom button design with `onTap` callback.
-- Line `236`: `NewPollSheet` a new page designed to create polls, with `onSave` callback that returns a new `Poll` object if all fields are valid.
+- `CreatePollButton` a custom button design with `onTap` callback.
+- `NewPollSheet` a new page designed to create polls, with `onSave` callback that returns a new `Poll` object if all fields are valid.
 
 ## Call `add` on `_pollsRef`
 
-Go to `TODO(1)`, and let's add the new poll to the database:
+Go to `TODO(1)`, and add the new poll to the database:
 
 ```dart
 Future<void> createPoll(Poll poll) async {
@@ -49,5 +49,5 @@ void onCreate() {
 }
 ```
 
-If you scroll up to `line 133`, we're calling `createPoll` from `PollsState` and giving it the newly constructed poll in the sheet.
+If you scroll up to `line 134`, we're calling `createPoll` from `PollsState` and passing the newly constructed poll in the sheet.
 
