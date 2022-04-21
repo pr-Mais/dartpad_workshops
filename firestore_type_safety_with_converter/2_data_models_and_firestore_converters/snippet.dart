@@ -134,6 +134,10 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
+                    // Make this optional for now and leave it out so the
+                    // ListItems are not tappable? After coding up the solution,
+                    // I thought my code might not be working since I could
+                    // click on an answer but it didn't do anything.
                     onVote: (i) {},
                   );
                 },

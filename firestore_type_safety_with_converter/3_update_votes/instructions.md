@@ -16,7 +16,7 @@ Each user is authenticated anonymously and has a unique ID. When a user clicks o
 
 In order to update `users` map, you need to update a field inside a map inside a document, this's a "nested field".
 
-In Firestore, nested fields can be updated easily by using the `update` method. Go to `TODO(1)`, and add the following method which updates the answer ID for a specific user:
+In Firestore, nested fields can be updated easily by using the `update` method. Go to `TODO(1)`, and add the following method to the `PollsState` class which updates the answer ID for a specific user:
 
 ```dart
 Future<void> vote(String pollId, int answerId) async {

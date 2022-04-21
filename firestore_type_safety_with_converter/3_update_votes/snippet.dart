@@ -135,7 +135,7 @@ class PollsPage extends StatelessWidget {
                   return PollListItem(
                     poll: pollDoc,
                     //TODO(2): call `vote` and pass it the current answer id.
-                    onVote: (i) {},
+                    onVote: (answerId) {}, // Please give this variable a more helpful name to guide the taker.
                   );
                 },
               ),
