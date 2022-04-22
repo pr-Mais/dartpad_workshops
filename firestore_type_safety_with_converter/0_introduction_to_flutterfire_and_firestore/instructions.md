@@ -4,7 +4,7 @@
 
 FlutterFire stands for **Flutter + Firebase**. It's a collection of plugins and packages to integrate and use Firebase in Flutter applications.
 
-**Firestore** is one of Firebase's popular products, it's a NoSQL real-time database. There's another database option in Firebase, which is the **Real-time Database**. To understand the difference between them, [this is a nice guide](https://firebase.google.com/docs/database/rtdb-vs-firestore) to help you decide which one is suitable for your use case.
+**Firestore** is a NoSQL real-time database and one of Firebase's most popular products. There's another database option in Firebase, which is the **Real-time Database**. To understand the difference between them, [this is a nice guide](https://firebase.google.com/docs/database/rtdb-vs-firestore) to help you decide which one is suitable for your use case.
 
 In this workshop, you will learn how to write effective and type-safe Firestore queries in Flutter, with techniques to serialize the data from and back to Firestore.
 
@@ -25,7 +25,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Additionally, you will notice 2 packages are added for you:
 1. [`firebase_auth`](https://pub.dev/packages/firebase_auth): to help you uniquely identify each user as you will use that in building the app.
-2. [`provider`](https://pub.dev/packages/provider): to help in state management and decoupling database logic from the UI.
+2. [`provider`](https://pub.dev/packages/provider): to help manage state and decouple database logic from the UI.
 
 ## Create a Firebase project
 
@@ -43,14 +43,14 @@ To create a Firebase project, follow these steps:
 
 ## Anonymous sign-in method
 
-[Firebase Auth](https://firebase.google.com/docs/auth) is used in this project to uniquely identify each user. It provides various options for sign-in methods, like Email and Password, Google, and the one which is used in this workshop, **anonymous sign-in**.
+[Firebase Auth](https://firebase.google.com/docs/auth) is used in this project to uniquely identify each user. It provides various options for sign-in methods, like Email and Password, Google, and the one you'll use throughout this workshop, **anonymous sign-in**.
 
 Before you can use any sign-in provider, you have to enable it explicitly in the Firebase console.
 ![Enable Firebase Auth in the Firebase Console](https://github.com/pr-Mais/dartpad_workshops/blob/main/firestore_type_safety_with_converter/assets/enable-auth.gif?raw=true)
 ## Initialize Firebase in Flutter
 
-Now that you have the configurations ready, the initialization should happen before any call to any other FlutterFire plugin, including Firestore.
-It's usually better to do that before calling `runApp()` in `main()`.
+Now that you have the configurations ready, it's time to initialize Firebase. The initialization must happen before calling any FlutterFire plugin, including Firestore.
+It's usually best to do that before calling `runApp()` in `main()`.
 
 ### `TODO(3)`
 
@@ -64,6 +64,6 @@ WidgetsFlutterBinding.ensureInitialized();
 await Firebase.initializeApp(options: firebaseOptions);
 ```
 
-**A common concern here is:** if the initialization is an asynchronous method, it might cause the app to take more time before calling `runApp()`, so a black screen will show for a few seconds.
+**A common concern here is:** if the initialization is an asynchronous method, it might cause the app to take more time before calling `runApp()`, so the splash screen will show for a few seconds. By default, the splash screen is blank.
 
 **The simple answer:** it wouldn't be a concern. The reason it's marked as `Future` is that it's calling platform channels on native platforms, and similarly on web it's injecting the configurations to the Firebase JS SDK. Therefore, it's not a network call and won't ever take more than a few milliseconds.

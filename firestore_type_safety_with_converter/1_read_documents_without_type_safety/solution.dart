@@ -6,6 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// Does this solution work? When I follow the instructions in step 2, verify my
+// object looks exactly the same as described, then either code up my own
+// solution OR run this solution code, none of the polls are displayed. I had to
+// change it up a bit to make it display the list of questions with a normal
+// ListTile.
+
 //TODO: paste your Firebase project configurations here.
 const firebaseOptions = FirebaseOptions(
   apiKey: "...",

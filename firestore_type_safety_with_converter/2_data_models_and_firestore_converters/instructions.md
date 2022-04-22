@@ -54,7 +54,7 @@ class Answer {
   });
 }
 ```
-
+<!-- Hm, is this part out of order? I might've missed it, but I did not see any mention of vote calculation thus far? Is it in the snippet code already provided to the user? If so, I'd highlighting that section, or ask the user to implement that part themselves. It feels a bit like something that maybe you know about at this point as the author, but something the workshop taker has not yet covered.-->
 The `votes` property is not one of the fields stored in the database. Remember where you calculated votes for each answer?
 This transformation code can now be included as a property in each answer as well.
 
@@ -83,6 +83,9 @@ factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
   // Votes is the total of users who voted for this answer by its Id.
   // The logic to calculate total votes is now done on the data layer,
   // making the widgets layer clean and separate from logic.
+
+  // Has the list of users been discussed by this point? I might've missed it, 
+  // but Step 2 only has us create an object with Question and Answers, no users.
   int votes = 0;
 
   for (String user in users.keys) {
@@ -99,6 +102,7 @@ factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
 }
 ```
 
+<!-- Once again, I feel like a step has been skipped here, since we didn't code up the vote calculation for PollListItem, but rather just used the code that was already in place. -->
 The `votes` is now calculated on the fly for each answer, therefore no need for the extra logic in `PollListItem` 😄
 
 ## `toJson()` instance method
@@ -134,6 +138,7 @@ Map<String, dynamic> toJson() {
 
 You're now ready to use the models. In `TODO(2)` & `TODO(3)`, change the list type from `Map<String, dynamic>` to `Poll`.
 
+<!-- maybe avoid the word magical? "Handy" or "useful" instead? You have a great explanation of what's going on below, but magic sometimes scares folks :)  -->
 Next, you will use the magical `withConvereter()` method on the collection reference, scroll back to `TODO(4)`, and change it to the following:
 
 ```dart

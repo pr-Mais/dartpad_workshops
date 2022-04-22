@@ -34,7 +34,8 @@ Lastly, fill the first document with the following data structure:
     },
   ],
   // The value of the question string could be any of your choice.
-  "question": "Are you liking Flutter?"
+  "question": "Are you liking Flutter?",
+  // "users"? Missing users here?
 }
 ```
 
