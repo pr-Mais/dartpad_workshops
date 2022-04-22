@@ -172,11 +172,16 @@ class PollListItem extends StatelessWidget {
     int votes(Map<String, dynamic> answer) {
       int votes = 0;
 
-      for (String user in pollData['users'].keys) {
-        if (pollData['users'][user] == answer['id']) {
-          votes++;
+      if (pollData.containsKey('users')) {
+        final users = pollData['users'].cast<Map<String, int>>();
+
+        for (Map<String, String> user in users) {
+          if (pollData['users'][user] == answer['id']) {
+            votes++;
+          }
         }
       }
+
       return votes;
     }
 
@@ -193,7 +198,7 @@ class PollListItem extends StatelessWidget {
         for (var answer in answers)
           ListTile(
             title: Text(answer['text']),
-            selected: pollData['users'][uid] == answer['id'],
+            selected: pollData['users']?[uid] == answer['id'],
             //TODO(6): read the property `votes`.
             trailing: Text('Votes: ${votes(answer)}'),
             onTap: () => onVote(answer['id']),

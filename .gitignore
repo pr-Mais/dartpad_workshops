@@ -4,3 +4,7 @@
 **/.packages
 **/build
 **/pubspec.lock
+
+firestore_type_safety_with_converter/completed_project
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
