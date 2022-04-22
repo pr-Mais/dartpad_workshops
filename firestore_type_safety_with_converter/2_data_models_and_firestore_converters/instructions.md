@@ -138,8 +138,7 @@ Map<String, dynamic> toJson() {
 
 You're now ready to use the models. In `TODO(2)` & `TODO(3)`, change the list type from `Map<String, dynamic>` to `Poll`.
 
-<!-- maybe avoid the word magical? "Handy" or "useful" instead? You have a great explanation of what's going on below, but magic sometimes scares folks :)  -->
-Next, you will use the magical `withConvereter()` method on the collection reference, scroll back to `TODO(4)`, and change it to the following:
+Next, you will use the handy `withConvereter()` method on the `CollectionReference`. Scroll back to `TODO(4)`, and change it to the following:
 
 ```dart
 CollectionReference<Poll> get _pollsRef =>
@@ -149,9 +148,9 @@ CollectionReference<Poll> get _pollsRef =>
         );
 ```
 
-Let us talk a bit about what's happening here. The data received from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a fromJson and toJson methods. It will handle transformation of data for you on all the operations done on this reference. For reads, you will get `Poll` instead of `Map`. In writes, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
+Let us talk a bit about what's happening here. The data received from Firestore is a JSON-like, key-value pairs. The method `withConverter()` will take 2 arguments, a `fromJson` and `toJson` methods. It will handle transformation of data for you on all operations done on this reference. For reads operations, you will get `Poll` instead of `Map`. For writes operations, you can pass a `Poll` directly without doing any manual pre-processing to convert it to `Map` back again.
 
-So if you want to add a new poll, you would simply do:
+Therefore, if you want to add a new poll, you would simply do:
 
 ```dart
 Poll poll = Poll({...});
