@@ -134,11 +134,6 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
-                    // Make this optional for now and leave it out so the
-                    // ListItems are not tappable? After coding up the solution,
-                    // I thought my code might not be working since I could
-                    // click on an answer but it didn't do anything.
-                    onVote: (i) {},
                   );
                 },
               ),
@@ -154,12 +149,12 @@ class PollListItem extends StatelessWidget {
   const PollListItem({
     Key? key,
     required this.poll,
-    required this.onVote,
+    this.onVote,
   }) : super(key: key);
 
   //TODO(3): change the type to `Poll`.
   final QueryDocumentSnapshot<Map<String, dynamic>> poll;
-  final void Function(int) onVote;
+  final void Function(int)? onVote;
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +168,10 @@ class PollListItem extends StatelessWidget {
       int votes = 0;
 
       if (pollData.containsKey('users')) {
-        final users = pollData['users'].cast<Map<String, int>>();
+        final users = pollData['users'].cast<String, int>();
 
-        for (Map<String, String> user in users) {
-          if (pollData['users'][user] == answer['id']) {
+        for (String userId in users.keys) {
+          if (users[userId] == answer['id']) {
             votes++;
           }
         }
@@ -201,7 +196,7 @@ class PollListItem extends StatelessWidget {
             selected: pollData['users']?[uid] == answer['id'],
             //TODO(6): read the property `votes`.
             trailing: Text('Votes: ${votes(answer)}'),
-            onTap: () => onVote(answer['id']),
+            onTap: onVote != null ? () => onVote!(answer['id']) : null,
           ),
         const Divider(),
       ],

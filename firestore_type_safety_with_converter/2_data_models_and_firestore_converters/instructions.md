@@ -45,18 +45,13 @@ Note how each field has a clear type. It's important to not leave lists and maps
 class Answer {
   final int id;
   final String text;
-  final int votes;
 
   Answer({
     required this.text,
     required this.id,
-    this.votes = 0,
   });
 }
 ```
-<!-- Hm, is this part out of order? I might've missed it, but I did not see any mention of vote calculation thus far? Is it in the snippet code already provided to the user? If so, I'd highlighting that section, or ask the user to implement that part themselves. It feels a bit like something that maybe you know about at this point as the author, but something the workshop taker has not yet covered.-->
-The `votes` property is not one of the fields stored in the database. Remember where you calculated votes for each answer?
-This transformation code can now be included as a property in each answer as well.
 
 ## `fromJson` factory constructor
 
@@ -77,19 +72,56 @@ factory Poll.fromJson(Map<String, dynamic>? data) {
     users: users,
   );
 }
+```
 
+```dart
 // Add it inside `Answer` class.
+factory Answer.fromJson(Map<String, dynamic> data) {
+  return Answer(
+    text: data['text'],
+    id: data['id'],
+  );
+}
+```
+
+## Move total votes logic from UI to model
+
+Remember in the previous step, where votes where calculated for each answer inside `PollListItem` widget?
+This transformation code can now be included as a property in the answer model, instead of putting it inside the UI code.
+
+Add a new property `votes` to `Answer`:
+
+```dart
+class Answer {
+  final int id;
+  final String text;
+
+  // TODO add this line
+  final int votes;
+
+  Answer({
+    required this.text,
+    required this.id,
+
+    // TODO add this line
+    required this.votes,
+  });
+}
+```
+
+Then, inside `Answer.fromJson` constructor, you will do a couple of steps:
+1. Add an additional argument `users`, which will be passed from `Poll`.
+2. Calculate votes inside `Answer.fromJson`.
+
+```dart
 factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
   // Votes is the total of users who voted for this answer by its Id.
   // The logic to calculate total votes is now done on the data layer,
   // making the widgets layer clean and separate from logic.
-
-  // Has the list of users been discussed by this point? I might've missed it, 
-  // but Step 2 only has us create an object with Question and Answers, no users.
   int votes = 0;
 
-  for (String user in users.keys) {
-    if (users[user] == data['id']) {
+  for (String userId in users.keys) {
+    if (users[userId] == data['id']) {
       votes++;
     }
   }
@@ -102,9 +134,24 @@ factory Answer.fromJson(Map<String, dynamic> data, Map<String, int> users) {
 }
 ```
 
-<!-- Once again, I feel like a step has been skipped here, since we didn't code up the vote calculation for PollListItem, but rather just used the code that was already in place. -->
-The `votes` is now calculated on the fly for each answer, therefore no need for the extra logic in `PollListItem` 😄
+2. Modify `Poll.fromJson` to pass the users.
 
+```dart
+factory Poll.fromJson(Map<String, dynamic>? data) {
+  // TODO get the users map to pass it to `Answer.fromJson`.
+  final users = (data!['users'] ?? {}).cast<String, int>();
+  final answers = data['answers']
+      .map((answerData) => Answer.fromJson(answerData, users))
+      .toList()
+      .cast<Answer>();
+
+  return Poll(
+    answers: answers,
+    question: data['question'],
+    users: users,
+  );
+}
+```
 ## `toJson()` instance method
 
 The constructor above instantiates a new object from a Map. This is helpful when reading documents from Firestore, but you also need to write to Firestore, in which case you need to get back a Map representation of each model.

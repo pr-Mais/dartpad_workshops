@@ -32,3 +32,11 @@ For more information about updating data, [see FlutterFire Firestore documentati
 ## Call `vote` from the UI
 
 In `TODO(2)`, you will simply call `vote()` and pass it the poll ID and answer ID. If you try to vote on any poll now, you can see the text color changing to amber, indicating that this is the answer you voted for. Additionally, the votes count dynamically increases since your vote adds up to the users' collection.
+
+```dart
+return PollListItem(
+  poll: pollDoc,
+  //TODO(2): call `vote` and pass it the current answer id.
+  onVote: (answerId) => pollsState.vote(pollDoc.id, answerId),
+);
+```

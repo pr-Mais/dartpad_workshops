@@ -134,7 +134,6 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
-                    onVote: (i) {},
                   );
                 },
               ),
@@ -150,12 +149,12 @@ class PollListItem extends StatelessWidget {
   const PollListItem({
     Key? key,
     required this.poll,
-    required this.onVote,
+    this.onVote,
   }) : super(key: key);
 
   //TODO(3): change the type to `Poll`.
   final QueryDocumentSnapshot<Poll> poll;
-  final void Function(int) onVote;
+  final void Function(int)? onVote;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +178,7 @@ class PollListItem extends StatelessWidget {
             selected: pollData.users[uid] == answer.id,
             //TODO(6): read the property `votes`.
             trailing: Text('Votes: ${answer.votes}'),
-            onTap: () => onVote(answer.id),
+            onTap: onVote != null ? () => onVote!(answer.id) : null,
           ),
         const Divider(),
       ],
@@ -301,8 +300,8 @@ class Answer {
     // making the widgets layer clean and separate from logic.
     int votes = 0;
 
-    for (String user in users.keys) {
-      if (users[user] == data['id']) {
+    for (String userId in users.keys) {
+      if (users[userId] == data['id']) {
         votes++;
       }
     }

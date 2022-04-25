@@ -135,7 +135,7 @@ class PollsPage extends StatelessWidget {
                   return PollListItem(
                     poll: pollDoc,
                     //TODO(2): call `vote` and pass it the current answer id.
-                    onVote: (i) => pollsState.vote(pollDoc.id, i),
+                    onVote: (answerId) => pollsState.vote(pollDoc.id, answerId),
                   );
                 },
               ),
@@ -151,11 +151,11 @@ class PollListItem extends StatelessWidget {
   const PollListItem({
     Key? key,
     required this.poll,
-    required this.onVote,
+    this.onVote,
   }) : super(key: key);
 
   final QueryDocumentSnapshot<Poll> poll;
-  final void Function(int) onVote;
+  final void Function(int)? onVote;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +178,7 @@ class PollListItem extends StatelessWidget {
             title: Text(answer.text),
             selected: pollData.users[uid] == answer.id,
             trailing: Text('Votes: ${answer.votes}'),
-            onTap: () => onVote(answer.id),
+            onTap: onVote != null ? () => onVote!(answer.id) : null,
           ),
         const Divider(),
       ],

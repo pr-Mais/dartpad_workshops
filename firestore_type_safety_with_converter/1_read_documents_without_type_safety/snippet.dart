@@ -137,11 +137,11 @@ class PollListItem extends StatelessWidget {
   const PollListItem({
     Key? key,
     required this.poll,
-    required this.onVote,
+    this.onVote,
   }) : super(key: key);
 
   final QueryDocumentSnapshot<Map<String, dynamic>> poll;
-  final void Function(int) onVote;
+  final void Function(int)? onVote;
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +154,10 @@ class PollListItem extends StatelessWidget {
       int votes = 0;
 
       if (pollData.containsKey('users')) {
-        final users = pollData['users'].cast<Map<String, int>>();
+        final users = pollData['users'].cast<String, int>();
 
-        for (Map<String, String> user in users) {
-          if (pollData['users'][user] == answer['id']) {
+        for (String userId in users.keys) {
+          if (users[userId] == answer['id']) {
             votes++;
           }
         }
@@ -181,7 +181,7 @@ class PollListItem extends StatelessWidget {
             title: Text(answer['text']),
             selected: pollData['users']?[uid] == answer['id'],
             trailing: Text('Votes: ${votes(answer)}'),
-            onTap: () => onVote(answer['id']),
+            onTap: onVote != null ? () => onVote!(answer['id']) : null,
           ),
         const Divider(),
       ],

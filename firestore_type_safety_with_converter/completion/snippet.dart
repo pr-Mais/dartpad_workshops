@@ -147,7 +147,7 @@ class PollsPage extends StatelessWidget {
 
                   return PollListItem(
                     poll: pollDoc,
-                    onVote: (i) => pollsState.vote(pollDoc.id, i),
+                    onVote: (answerId) => pollsState.vote(pollDoc.id, answerId),
                   );
                 },
               ),
@@ -163,11 +163,11 @@ class PollListItem extends StatelessWidget {
   const PollListItem({
     Key? key,
     required this.poll,
-    required this.onVote,
+    this.onVote,
   }) : super(key: key);
 
   final QueryDocumentSnapshot<Poll> poll;
-  final void Function(int) onVote;
+  final void Function(int)? onVote;
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +190,7 @@ class PollListItem extends StatelessWidget {
             title: Text(answer.text),
             selected: pollData.users[uid] == answer.id,
             trailing: Text('Votes: ${answer.votes}'),
-            onTap: () => onVote(answer.id),
+            onTap: onVote != null ? () => onVote!(answer.id) : null,
           ),
         const Divider(),
       ],
@@ -198,7 +198,6 @@ class PollListItem extends StatelessWidget {
   }
 }
 
-// ✨ Newly added widget in step 5.
 class CreatePollButton extends StatelessWidget {
   const CreatePollButton({
     Key? key,
@@ -234,7 +233,6 @@ class CreatePollButton extends StatelessWidget {
   }
 }
 
-// ✨ Newly added widget in step 5.
 class NewPollSheet extends StatefulWidget {
   const NewPollSheet({
     Key? key,
@@ -266,7 +264,6 @@ class _NewPollSheetState extends State<NewPollSheet> {
 
   void onCreate() {
     if (formKey.currentState!.validate() && answersControllers.isNotEmpty) {
-      //TODO(2): upon clickin on create button, construct a new Poll and pass it to widget.onSave()
       Poll poll = Poll(
         answers: [
           for (int answerId in answersControllers.keys)
@@ -398,7 +395,6 @@ class PollsState extends ChangeNotifier {
   }
 
   Future<void> createPoll(Poll poll) async {
-    //TODO(1): add the new poll to the database.
     await _pollsRef.add(poll);
   }
 }

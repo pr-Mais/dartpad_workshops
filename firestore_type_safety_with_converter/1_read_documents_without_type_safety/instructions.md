@@ -35,7 +35,7 @@ Lastly, fill the first document with the following data structure:
   ],
   // The value of the question string could be any of your choice.
   "question": "Are you liking Flutter?",
-  // "users"? Missing users here?
+  "users": {}
 }
 ```
 
@@ -84,13 +84,39 @@ Expanded(
 
         return PollListItem(
           poll: pollDoc,
-          onVote: (i) {},
         );
       },
     ),
   ),
 )
 ```
+
+### Total votes for each answer
+
+The total votes for each answer is not stored with each answer, rather is calculated on the fly. In the structure of a poll document, you noticed an empty `users` field of type `Map`. This is going to be a `Map` of key-value pairs, linking each user to the answer they voted for by IDs. Therefor, the total number of votes for an answer is the total number of users in the map who has that answer ID.
+
+If you go take a look inside the `PollListItem`, you will notice a method `votes()`, which takes an answer, and based on its ID, returns how many users have voted for this answer.
+
+```dart
+/// Votes is the total of users who voted for this answer by its Id.
+int votes(Map<String, dynamic> answer) {
+  int votes = 0;
+
+  if (pollData.containsKey('users')) {
+    final users = pollData['users'].cast<String, int>();
+
+    for (String userId in users.keys) {
+      if (users[userId] == answer['id']) {
+        votes++;
+      }
+    }
+  }
+
+  return votes;
+}
+```
+
+This will be `0` for since there are no users yet.
 
 ## What's the problem with using `Map<String, dynamic>` as the reference type
 
