@@ -127,13 +127,14 @@ class PollsPage extends StatelessWidget {
           Consumer<PollsState>(
             builder: (context, pollsState, __) => CreatePollButton(
               onTap: () {
-                showBottomSheet<NewPollSheet>(
-                    context: context,
-                    builder: (context) {
-                      return NewPollSheet(
-                        onSave: pollsState.createPoll,
-                      );
-                    });
+                showBottomSheet<NewPollSheet?>(
+                  context: context,
+                  builder: (context) {
+                    return NewPollSheet(
+                      onSave: pollsState.createPoll,
+                    );
+                  },
+                );
               },
             ),
           ),
@@ -269,6 +270,15 @@ class _NewPollSheetState extends State<NewPollSheet> {
       //TODO(2): upon clicking on create button, construct a new Poll and pass it to widget.onSave()
       Navigator.of(context).pop();
     }
+  }
+
+  @override
+  void dispose() {
+    questionController.dispose();
+    for (final controller in answersControllers.values) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
